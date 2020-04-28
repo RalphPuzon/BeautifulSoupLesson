@@ -1,5 +1,6 @@
 #beautifulSoup scraping practice:
-
+#-*- coding: latin-1 -*-
+    
 import os
 import csv 
 from bs4 import BeautifulSoup
@@ -49,7 +50,8 @@ for link in list_of_links:
     #page loop for title, rating, price:
     for pod in souptempo.find_all('article', class_='product_pod'):
 
-        bookTitle = str(pod.h3.a['title'].encode('utf8'))[2:-1]
+        bookTitle = str(pod.h3.a['title'].encode('utf8').\
+                        decode("ascii", "ignore"))
         
         if "One" in pod.p["class"]:
             bookRating = 1
@@ -69,7 +71,7 @@ for link in list_of_links:
         
 csv_file.close() 
 
-#TODO: fix title encoding
+
     
     
     
