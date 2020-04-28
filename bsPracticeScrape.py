@@ -1,8 +1,11 @@
 #beautifulSoup scraping practice:
-import sys
+
+import os
 import csv 
 from bs4 import BeautifulSoup
 import requests
+
+os.chdir("E:\\gitHubProjects\\forGitHub\\beautifulSoup")
 
 #fetch html via requests:
 site = 'http://books.toscrape.com'
@@ -38,7 +41,7 @@ writer.writerow(['CATEGORY', 'TITLE', 'RATING', 'PRICE'])
     
 for link in list_of_links: 
     templink = requests.get(link).text
-    souptempo = BeautifulSoup(templink, 'html5') 
+    souptempo = BeautifulSoup(templink, 'html5lib') 
     
     #setting category for page loop
     bookCategory = souptempo.find('div', class_="page-header action").h1.text
@@ -46,7 +49,7 @@ for link in list_of_links:
     #page loop for title, rating, price:
     for pod in souptempo.find_all('article', class_='product_pod'):
 
-        bookTitle = pod.h3.a.text.encode(sys.getdefaultencoding(),'replace')
+        bookTitle = str(pod.h3.a['title'].encode('utf8'))[2:-1]
         
         if "One" in pod.p["class"]:
             bookRating = 1
@@ -61,12 +64,12 @@ for link in list_of_links:
         
         bookPrice = pod.find('div', class_="product_price").find\
             ('p', class_= "price_color").text[2:]
-            
+        
         writer.writerow([bookCategory, bookTitle, bookRating, bookPrice])
         
 csv_file.close() 
 
-#TODO: fix title issue
+#TODO: fix title encoding
     
     
     
