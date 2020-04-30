@@ -1,5 +1,5 @@
 #beautifulSoup scraping practice:
-#-*- coding: latin-1 -*-
+# -*- coding: latin-1 -*-
     
 import os
 import csv 
@@ -31,7 +31,7 @@ for li in sidebar_soup_lists.find_all("li"):
 #price. we will save this in a csv, for analytics later:
     
 #csv prep:
-csv_file = open('bookstore_scrape.csv', 'w') 
+csv_file = open('bookstore_scrape.csv', 'w', newline = '') 
 
 writer = csv.writer(csv_file) 
 
